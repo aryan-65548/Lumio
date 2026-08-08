@@ -1,0 +1,21 @@
+export const BUILDER_TITLES = [
+  'Code Ninja',
+  'API Wizard',
+  'Bug Slayer',
+  'CSS Samurai',
+  'Coffee Compiler',
+  'Infinite Looper',
+  'StackOverflow Survivor',
+  'Deployment Beast',
+  'Pixel Pusher',
+  'Git Wrangler',
+  'JS Whisperer',
+  'JSON Parser',
+  'Terminal Gladiator',
+  'Refactor Rogue',
+  'Docker tamer',
+  'YAML Whisperer',
+  'WASM Warlock',
+  'Async Sorcerer',
+  'Merge Conflict Master'
+];
