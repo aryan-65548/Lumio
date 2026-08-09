@@ -1,6 +1,8 @@
 'use client';
 
+import { LogOut, User as UserIcon } from 'lucide-react';
 import { ThemeConfig } from '../types/theme';
+import { useAuth } from '../context/AuthContext';
 
 interface HeaderProps {
   themeConfig: ThemeConfig;
@@ -8,9 +10,41 @@ interface HeaderProps {
 
 export function HackerHouseHeader({ themeConfig }: HeaderProps) {
   const isGoa = themeConfig.id === 'goa';
+  const { user, isAuthenticated, logout } = useAuth();
 
   return (
-    <header className="w-full py-8 px-4 md:px-8 flex flex-col items-center justify-center relative z-10 select-none">
+    <header className="w-full py-8 px-4 md:px-8 flex flex-col items-center justify-center relative z-20 select-none">
+      {/* Authenticated User Bar */}
+      {isAuthenticated && user && (
+        <div className="w-full max-w-6xl flex justify-between items-center mb-6 px-2">
+          <div
+            className={`
+              flex items-center gap-2 px-3.5 py-1.5 rounded-xl font-bold text-xs uppercase tracking-wider border shadow-sm
+              ${isGoa
+                ? 'bg-white/90 text-[#083C26] border-[#083C26]'
+                : 'bg-[#182029] text-[#F2EFE9] border-white/10'}
+            `}
+          >
+            <UserIcon className="w-3.5 h-3.5 text-[#00A3E0]" />
+            <span>{user.fullName}</span>
+          </div>
+
+          <button
+            onClick={logout}
+            className={`
+              flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-bold text-xs uppercase tracking-wider border transition-all cursor-pointer shadow-sm
+              ${isGoa
+                ? 'bg-white/80 text-[#083C26] border-[#083C26] hover:bg-[#FFE566]'
+                : 'bg-[#182029] text-[#8B959A] border-white/10 hover:text-white hover:bg-white/10'}
+            `}
+            title="Log Out"
+          >
+            <LogOut className="w-3.5 h-3.5" />
+            <span>LOG OUT</span>
+          </button>
+        </div>
+      )}
+
       <div className="text-center">
         <div className="relative inline-block">
           {/* Main title: extremely large, bold geometric display sans-serif */}
@@ -49,3 +83,4 @@ export function HackerHouseHeader({ themeConfig }: HeaderProps) {
 }
 
 export default HackerHouseHeader;
+

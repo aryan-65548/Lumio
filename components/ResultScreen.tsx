@@ -47,10 +47,16 @@ export function ResultScreen({
   const handleShareToX = async () => {
     setIsSharing(true);
     try {
-      // 1. Upload to ephemeral storage
+      const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+
+      // 1. Upload to ephemeral / Cloudinary storage
       const res = await fetch('/api/upload', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify({ image: imageUrl, name }),
       });
 
@@ -90,20 +96,20 @@ export function ResultScreen({
   const copyShareLink = async () => {
     setCopied(true);
     try {
-      const payload = JSON.stringify({
-        img: imageUrl.startsWith('data:') ? 'https://tmpfiles.org/dl/' : imageUrl, // Fallback if already uploaded
-        name,
-        role,
-        title
-      });
-      // We upload first to get the URL
       setIsSharing(true);
+      const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+
       const res = await fetch('/api/upload', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify({ image: imageUrl, name }),
       });
       const uploadData = await res.json();
+
       
       if (uploadData.success && uploadData.url) {
         const payload = JSON.stringify({
