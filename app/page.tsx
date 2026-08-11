@@ -168,11 +168,16 @@ function BuilderAppContent() {
   };
 
   // Transition back from edit form to upload screen
-  const handleBackToUpload = () => {
-    clearPhoto();
-    setFlowState('EMPTY');
-  };
+  // Transition back from edit form to upload screen
+const handleBackToUpload = () => {
+  clearPhoto();
+  setFlowState('EMPTY');
+};
 
+// Go back from result screen to edit screen
+const handleBackToEdit = () => {
+  setFlowState('PHOTO_SELECTED');
+};
   return (
     <main className="flex-1 w-full min-h-screen flex flex-col relative transition-all duration-350 overflow-x-hidden">
       {/* 1. Theme-Specific Background Overlay */}
@@ -372,6 +377,7 @@ function BuilderAppContent() {
                   role={details.role}
                   title={details.title}
                   onReset={handleReset}
+                  onBack={handleBackToEdit}
                 />
               </motion.div>
             )}

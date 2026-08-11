@@ -57,13 +57,23 @@ export function AuthScreen({ themeConfig }: AuthScreenProps) {
           </span>
           
           <h2
-            className={`
-              text-2xl md:text-3xl font-black mt-3 uppercase tracking-tight
-              ${isGoa ? 'text-[#083C26] font-serif' : 'text-[#F2EFE9] font-cinzel'}
-            `}
-          >
-            {mode === 'login' ? 'WELCOME BACK' : 'JOIN HACKERHOUSE'}
-          </h2>
+  className={`
+    w-full text-center
+    text-2xl md:text-3xl
+    font-black mt-3 uppercase tracking-tight
+    leading-none
+    ${isGoa ? 'text-[#083C26] font-serif' : 'text-[#F2EFE9] font-cinzel'}
+  `}
+>
+  {mode === 'login' ? (
+    'WELCOME BACK'
+  ) : (
+    <>
+      <span className="block">JOIN</span>
+      <span className="block text-xl md:text-2xl">HACKERHOUSE</span>
+    </>
+  )}
+</h2>
           <p
             className={`
               text-xs mt-1 font-semibold uppercase tracking-wider
